@@ -9,7 +9,7 @@
     "token": {
       "access": {
         "exp": 86400,
-        "secret": ""
+        "secret": "dev-secret-key-change-in-production-2024"
       }
     },
     "handOverSalt": ""
@@ -23,12 +23,12 @@
     ]
   },
   "database": {
-    "username": "",
-    "password": "",
-    "name": "",
-    "host": "",
+    "username": "vxengine",
+    "password": "vxengine123",
+    "name": "vx_engine_development",
+    "host": "localhost",
     "port": 27021,
-    "authSource": "",
+    "authSource": "admin",
     "options": {
     }
   },

@@ -15,7 +15,7 @@ A modern, production-ready Express.js boilerplate with authentication, user mana
 - **Admin Panel**: Admin routes for user management and system statistics
 - **Soft Delete**: Logical deletion with automatic filtering
 - **File Management**: AWS S3 integration for file uploads and management
-- **Database Integration**: MongoDB with Mongoose ODM (port 27020 for local dev)
+- **Database Integration**: MongoDB with Mongoose ODM (port 27021 for local dev)
 - **Email Service**: Nodemailer integration with AWS SES support
 - **Security**: 
   - Helmet.js for security headers
@@ -50,18 +50,20 @@ A modern, production-ready Express.js boilerplate with authentication, user mana
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Set up environment variables** (Optional for quick start)
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
+   
+   **Note**: The development configuration (`lib/config/development_env_config.json`) is pre-configured with defaults that work with Docker Compose and seed script. You can start immediately without setting up `.env` file for local development.
 
 4. **Set up the database**
    ```bash
    # Start MongoDB and Mongo Express using Docker Compose
    docker-compose up -d
    ```
-   MongoDB will be available on `localhost:27020`
+   MongoDB will be available on `localhost:27021`
 
 5. **Seed the database**
    ```bash
@@ -97,7 +99,7 @@ NODE_ENV=development
 PORT=3008
 
 # Database
-MONGODB_URI=mongodb://vxengine:vxengine123@localhost:27020/vx_engine_development
+MONGODB_URI=mongodb://vxengine:vxengine123@localhost:27021/vx_engine_development
 MONGODB_USERNAME=vxengine
 MONGODB_PASSWORD=vxengine123
 
@@ -197,7 +199,7 @@ docker-compose logs -f
 docker-compose restart
 ```
 
-MongoDB runs on port **27020** (to avoid conflicts with default MongoDB port).
+MongoDB runs on port **27021** (to avoid conflicts with default MongoDB port).
 
 ## 🧪 Development
 
