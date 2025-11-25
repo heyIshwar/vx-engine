@@ -1,0 +1,287 @@
+# VX Engine Cursor Rules
+
+You are an expert full-stack developer working on VX Engine, a modern Node.js/Express.js web application engine with MongoDB.
+
+## 📚 Important Documentation
+
+Before making changes, refer to:
+- `.cursor/DEVELOPMENT_GUIDE.md` - Complete guide for adding modules, crons, middlewares, etc.
+- `.cursor/MODULE_TEMPLATE.md` - Template for creating new modules
+
+## 🎯 Quick Reference
+
+When adding a new module:
+1. Use the template from `.cursor/MODULE_TEMPLATE.md`
+2. Follow patterns in existing modules (User, Admin, File)
+3. Register router in `loaders/express.js`
+4. Extend base classes (BaseModel, BaseService, BaseController)
+5. Use soft delete by default
+6. Add proper validation and error handling
+
+## Project Context
+- **Project**: VX Engine - Modern web application engine
+- **Stack**: Node.js, Express.js, MongoDB with Mongoose, JWT Authentication
+- **Architecture**: Modular, with loaders, middlewares, and feature-based modules
+- **Database**: MongoDB (local development with Docker, Atlas for production)
+- **Authentication**: JWT with Passport.js strategies
+
+## Code Style & Standards
+
+### General JavaScript/Node.js
+- Use modern ES6+ syntax with async/await over callbacks
+- Use const for constants, let for variables, avoid var
+- Use destructuring for objects and arrays where appropriate
+- Use template literals for string interpolation
+- Add JSDoc comments for complex functions and classes
+- Use meaningful variable and function names
+- Keep functions small and focused (single responsibility)
+
+### Express.js Best Practices
+- Use proper middleware order: security, parsing, custom middleware, routes, error handlers
+- Organize routes using Express Router in modular structure
+- Always use try/catch blocks with async route handlers
+- Use centralized error handling middleware
+- Implement proper HTTP status codes (200, 201, 400, 401, 403, 404, 500)
+- Use middleware for authentication and authorization
+- Validate all incoming requests using Joi schemas
+
+### MongoDB/Mongoose
+- Use proper schema definitions with validations
+- Always use async/await with Mongoose operations
+- Use proper error handling for database operations
+- Use MongoDB indexes for performance
+- Use transactions for multi-document operations
+- Use proper connection handling and pooling
+
+### Project Structure
+- Follow the established modular architecture
+- Each module should have: controller, service, model, validator, router
+- Use base classes for common functionality
+- Keep configuration external in lib/config
+- Use proper separation of concerns
+
+### File Organization
+- Controllers: Handle HTTP requests/responses, call services
+- Services: Contain business logic, interact with models
+- Models: Database schemas and methods
+- Validators: Request validation schemas
+- Routers: Route definitions and middleware
+- Middlewares: Reusable request processing logic
+
+### Error Handling
+- Use custom error classes from lib/errors
+- Always handle errors gracefully
+- Log errors appropriately with context
+- Return consistent error response format
+- Use appropriate HTTP status codes for different error types
+
+### Security
+- Never commit secrets or credentials
+- Use environment variables for sensitive data
+- Validate and sanitize all inputs
+- Use proper authentication middleware
+- Implement rate limiting for API endpoints
+- Use CORS appropriately
+- Keep dependencies updated
+
+### Testing
+- Write unit tests for services and utilities
+- Write integration tests for API endpoints
+- Use meaningful test descriptions
+- Mock external dependencies
+- Test both success and error scenarios
+
+### Documentation
+- Keep README.md updated
+- Document API endpoints with examples
+- Comment complex business logic
+- Use JSDoc for function documentation
+- Keep setup instructions current
+
+## Code Examples
+
+### Controller Pattern
+```javascript
+class YourController extends BaseController {
+  async create(req, res, next) {
+    try {
+      const validatedData = await YourValidator.validate(req.body, YourValidator.createSchema);
+      const result = await this.yourService.create(validatedData);
+      return this.success(res, result, 'Created successfully', 201);
+    } catch (error) {
+      next(error);
+    }
+  }
+}
+```
+
+### Service Pattern
+```javascript
+class YourService extends BaseService {
+  async create(data) {
+    const existingItem = await YourModel.findOne({ email: data.email });
+    if (existingItem) {
+      throw new ConflictError('Item already exists');
+    }
+    return await YourModel.create(data);
+  }
+}
+```
+
+### Router Pattern
+```javascript
+const router = express.Router();
+const controller = new YourController();
+
+router.post('/', 
+  ValidatorMiddleware.validate(YourValidator.createSchema),
+  controller.create.bind(controller)
+);
+
+module.exports = router;
+```
+
+### Error Handling
+```javascript
+// Always wrap async operations
+try {
+  const result = await someAsyncOperation();
+  return result;
+} catch (error) {
+  if (error.code === 11000) {
+    throw new ConflictError('Duplicate entry');
+  }
+  throw error;
+}
+```
+
+## Environment-Specific Rules
+
+### Development
+- Use detailed logging
+- Enable debug mode
+- Use local MongoDB container
+- Hot reload with nodemon
+
+### Production
+- Minimize logging
+- Use MongoDB Atlas
+- Enable compression
+- Set proper security headers
+- Use process managers (PM2)
+
+## Database Rules
+
+### Schema Design
+- Use proper data types
+- Add validations at schema level
+- Create indexes for frequently queried fields
+- Use refs for relationships
+- Add timestamps (createdAt, updatedAt)
+
+### Query Optimization
+- Use lean() for read-only operations
+- Use select() to limit fields
+- Use pagination for large datasets
+- Use aggregation pipeline for complex queries
+
+## API Response Format
+Always use consistent response format:
+
+```javascript
+// Success
+{
+  success: true,
+  data: {},
+  message: "Operation successful",
+  timestamp: "2024-01-01T00:00:00.000Z"
+}
+
+// Error
+{
+  success: false,
+  error: {
+    name: "ERROR_TYPE",
+    message: "Error description"
+  },
+  timestamp: "2024-01-01T00:00:00.000Z"
+}
+```
+
+## Common Patterns
+
+### Async Route Handler
+```javascript
+const asyncHandler = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+router.get('/', asyncHandler(async (req, res) => {
+  const data = await someAsyncOperation();
+  res.json({ success: true, data });
+}));
+```
+
+### Middleware Creation
+```javascript
+const yourMiddleware = (req, res, next) => {
+  // Middleware logic
+  if (condition) {
+    return next(new UnauthorizedError('Access denied'));
+  }
+  next();
+};
+```
+
+### Service with Error Handling
+```javascript
+class YourService {
+  async findById(id) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestError('Invalid ID format');
+    }
+    
+    const item = await YourModel.findById(id);
+    if (!item) {
+      throw new NotFoundError('Item not found');
+    }
+    
+    return item;
+  }
+}
+```
+
+## Performance Guidelines
+
+- Use indexes on frequently queried fields
+- Implement pagination for list endpoints
+- Use caching where appropriate
+- Optimize database queries
+- Use compression middleware
+- Implement rate limiting
+- Monitor application performance
+
+## Security Checklist
+
+- [ ] Input validation on all endpoints
+- [ ] Authentication on protected routes
+- [ ] Authorization checks where needed
+- [ ] SQL injection prevention (Mongoose handles this)
+- [ ] XSS protection
+- [ ] CSRF protection if needed
+- [ ] Rate limiting implemented
+- [ ] Secure headers (Helmet.js)
+- [ ] Environment variables for secrets
+- [ ] Regular dependency updates
+
+## Always Remember
+
+1. **Test your changes** - Ensure functionality works as expected
+2. **Handle errors gracefully** - Don't let the application crash
+3. **Follow the modular pattern** - Maintain consistency with existing code
+4. **Document your changes** - Update documentation when needed
+5. **Security first** - Always consider security implications
+6. **Performance matters** - Write efficient code
+7. **Keep it simple** - Don't over-engineer solutions
+
+Follow these rules consistently to maintain high code quality and project stability in VX Engine. 

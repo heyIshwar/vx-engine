@@ -1,0 +1,81 @@
+{
+  "express": {
+    "protocol": "http://",
+    "useFqdnForApis": false,
+    "ipAddress": "127.0.0.1",
+    "fqdn": "",
+    "port": 3008,
+    "apiUrl": "v1"
+  },
+  "file": {
+    "s3": {
+      "bucket": "",
+      "accessKeyId": "",
+      "secretAccessKey": "",
+      "region": "ap-south-1"
+    },
+    "maxFileSize": 100000000,
+    "maxFileCount": 10,
+    "preSignedUrlExpiry": 3600
+  },
+  "ses": {
+    "region": "",
+    "accessKeyId": "",
+    "secretAccessKey": ""
+  },
+  "database": {
+    "username": "",
+    "password": "",
+    "name": "",
+    "host": "",
+    "port": 27017,
+    "authSource": "",
+    "options": {
+    }
+  },
+  "auth": {
+    "token": {
+      "access": {
+        "exp": 86400,
+        "secret": ""
+      }
+    },
+    "handOverSalt": ""
+  },
+  "cors":  {
+    "whitelistUrls":  ["http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3000", "http://192.168.0.10:3000"]
+  },
+  "email": {
+    "transport": {
+      "SMTP": {
+        "host": "email-smtp.us-east-2.amazonaws.com",
+        "port": 587,
+        "secure": false,
+        "auth": {
+          "user": "",
+          "pass": ""
+        }
+      },
+      "local": {
+        "sendmail": true,
+        "newline": "unix",
+        "path": "/usr/sbin/sendmail"
+      }
+    },
+    "sender": "no-reply@example.com",
+    "supportEmail": "support@example.com",
+    "webClientUri": "https://staging.yourdomain.com",
+    "adminClientUri": "https://admin-staging.yourdomain.com"
+  },
+  "rateLimit": {
+    "auth": {
+      "windowMs": 900000,
+      "max": 5
+    },
+    "api": {
+      "windowMs": 900000,
+      "max": 100
+    }
+  }
+}
+

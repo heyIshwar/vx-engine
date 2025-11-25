@@ -1,0 +1,48 @@
+version: '3.8'
+
+# NOTE: Default credentials are for LOCAL DEVELOPMENT ONLY
+# In production, use strong passwords and set them via environment variables
+# Never commit production credentials to version control
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: vx-engine-mongodb
+    restart: unless-stopped
+    ports:
+      - "27021:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: vxengine
+      MONGO_INITDB_ROOT_PASSWORD: vxengine123
+      MONGO_INITDB_DATABASE: vx_engine_development
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - vx-engine-network
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: vx-engine-mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      # Local development credentials only - change in production
+      ME_CONFIG_MONGODB_ADMINUSERNAME: vxengine
+      ME_CONFIG_MONGODB_ADMINPASSWORD: vxengine123
+      ME_CONFIG_MONGODB_URL: mongodb://vxengine:vxengine123@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin123
+    depends_on:
+      - mongodb
+    networks:
+      - vx-engine-network
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+
+networks:
+  vx-engine-network:
+    driver: bridge 
