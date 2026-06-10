@@ -2,7 +2,7 @@
 
 ## 🚀 Adding a New Module (5 Steps)
 
-1. **Create module files** using `.cursor/MODULE_TEMPLATE.md`
+1. **Create module files** using `docs/development/MODULE_TEMPLATE.md`
 2. **Register router** in `loaders/express.js`:
    ```javascript
    const YourModuleRouter = require('../modules/YourModule/router');
@@ -57,9 +57,9 @@ try {
 
 ## 📚 Documentation Files
 
-- **Full Guide**: `.cursor/DEVELOPMENT_GUIDE.md`
-- **Module Template**: `.cursor/MODULE_TEMPLATE.md`
-- **AI Instructions**: `.cursor/AI_INSTRUCTIONS.md`
+- **Full Guide**: `docs/development/DEVELOPMENT_GUIDE.md`
+- **Module Template**: `docs/development/MODULE_TEMPLATE.md`
+- **AI Instructions**: `docs/development/AI_INSTRUCTIONS.md`
 - **Cursor Rules**: `.cursorrules`
 
 ## ⚡ Common Commands

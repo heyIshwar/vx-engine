@@ -136,7 +136,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 3. Register router in `loaders/express.js`
 
-See `.cursor/MODULE_TEMPLATE.md` for a detailed template.
+See `docs/development/MODULE_TEMPLATE.md` for a detailed template.
 
 ## Testing
 

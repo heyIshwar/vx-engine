@@ -62,7 +62,7 @@ module.exports = {
     staging: {
       user: 'ubuntu',
       host: 'your-staging-server.com',
-      ref: 'origin/develop',
+      ref: 'origin/main',
       repo: 'https://github.com/heyIshwar/vx-engine.git',
       path: '/var/www/vx-engine-staging',
       'pre-deploy-local': '',

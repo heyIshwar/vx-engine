@@ -250,7 +250,7 @@ MongoDB runs on port **27021** (to avoid conflicts with default MongoDB port).
 - `npm run backup` - Run manual backup
 - `npm run lint` - Run ESLint
 - `npm run format` - Format code with Prettier
-- `npm test` - Run tests (when configured)
+- `npm test` - Placeholder (test runner not configured yet)
 
 ### Authentication
 
@@ -316,14 +316,11 @@ Set environment variables:
 
 ## 🧪 Testing
 
+Test folder exists at `tests/integration/`. Test runner is not configured yet — `npm test` is a placeholder.
+
 Run database seed first:
 ```bash
 npm run seed
-```
-
-Then run tests (when test framework is configured):
-```bash
-npm test
 ```
 
 ## 📝 Code Quality

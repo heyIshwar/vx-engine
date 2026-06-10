@@ -5,13 +5,13 @@ You are an expert full-stack developer working on VX Engine, a modern Node.js/Ex
 ## 📚 Important Documentation
 
 Before making changes, refer to:
-- `.cursor/DEVELOPMENT_GUIDE.md` - Complete guide for adding modules, crons, middlewares, etc.
-- `.cursor/MODULE_TEMPLATE.md` - Template for creating new modules
+- `docs/development/DEVELOPMENT_GUIDE.md` - Complete guide for adding modules, crons, middlewares, etc.
+- `docs/development/MODULE_TEMPLATE.md` - Template for creating new modules
 
 ## 🎯 Quick Reference
 
 When adding a new module:
-1. Use the template from `.cursor/MODULE_TEMPLATE.md`
+1. Use the template from `docs/development/MODULE_TEMPLATE.md`
 2. Follow patterns in existing modules (User, Admin, File)
 3. Register router in `loaders/express.js`
 4. Extend base classes (BaseModel, BaseService, BaseController)

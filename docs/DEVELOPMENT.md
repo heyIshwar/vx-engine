@@ -23,7 +23,7 @@ This guide covers the development setup, architecture, and best practices for wo
 3. **Access Services**
    - Application: http://localhost:3008
    - MongoDB UI: http://localhost:8081
-   - MongoDB: localhost:27018
+   - MongoDB: localhost:27021
 
 ## Architecture Overview
 
@@ -62,7 +62,7 @@ services:
     image: mongo:latest
     container_name: vx-engine-mongodb
     ports:
-      - "27018:27017"
+      - "27021:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: vxengine
       MONGO_INITDB_ROOT_PASSWORD: vxengine123
@@ -327,7 +327,7 @@ docker-compose down
 
 ### MongoDB Management
 
-- **Direct Connection**: `mongodb://vxengine:vxengine123@localhost:27018/vx_engine_development`
+- **Direct Connection**: `mongodb://vxengine:vxengine123@localhost:27021/vx_engine_development`
 - **Mongo Express**: http://localhost:8081
 - **Credentials**: admin/admin123
 

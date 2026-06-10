@@ -23,7 +23,7 @@ vx-engine/
 ├── utils/            # Utility functions
 ├── scripts/          # Utility scripts (seed, backup)
 ├── crons/            # Cron job definitions
-└── .cursor/          # AI/Cursor documentation
+└── docs/development/ # Development and AI documentation
 ```
 
 ## 🔧 Adding a New Module
@@ -31,7 +31,7 @@ vx-engine/
 ### Quick Steps
 
 1. **Create module directory**: `modules/YourModule/`
-2. **Create files** (use `.cursor/MODULE_TEMPLATE.md`):
+2. **Create files** (use `docs/development/MODULE_TEMPLATE.md`):
    - `model.js` - Database model (extends BaseModel)
    - `service.js` - Business logic (extends BaseService)
    - `controller.js` - HTTP handlers (extends BaseController)
@@ -238,8 +238,8 @@ When adding/modifying code:
 
 ## 📚 Reference Files
 
-- **Module Template**: `.cursor/MODULE_TEMPLATE.md`
-- **Development Guide**: `.cursor/DEVELOPMENT_GUIDE.md`
+- **Module Template**: `docs/development/MODULE_TEMPLATE.md`
+- **Development Guide**: `docs/development/DEVELOPMENT_GUIDE.md`
 - **Cursor Rules**: `.cursorrules`
 - **Base Classes**: `modules/base-*.js`
 - **Error Classes**: `lib/errors/`
